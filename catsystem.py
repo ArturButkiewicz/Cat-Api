@@ -10,7 +10,7 @@ def get_json_content_from_response(response):
     try:
        content = response.json()
     except json.decoder.JSONDecodeError:
-       print("Niepoprawny format", response.text)
+       print("Unknown format", response.text)
     else:
        return content
     
@@ -46,28 +46,25 @@ def remove_favourite_cat (userId, favourtieCatId):
     
         return get_json_content_from_response(r)
 
-print("Hej, zaloguj się - podaj login i hasło")
-#pobranie loginu i hasla
-#sprawdzamy czy login i haslo jest poprawne
-#logowanie zaszlo poprawnie
-#pobieramy z bazy danych userId i name - nazwe użytkownika
+print("Hey, sign in !")
+
 
 userId = "agh2m"
 name = "Artur"
 
-print("Witaj " + name)
+print("Welcome " + name)
 favouriteCats = get_favourite_cats(userId)
-print("Twoje ulubione kotki to ", favouriteCats)
+print("Your favourite cats are ", favouriteCats)
 randomCat = get_random_cat()
-print("Wylosowano kotka: ", randomCat["url"])
+print("You draw a cat: ", randomCat["url"])
 
-addToFavourites = input ("Czy chcesz go dodać do ulubionych? T/N")
+addToFavourites = input ("Do you want add this cat to favourites? Y/N")
 
-if (addToFavourites.upper () == "T"):
+if (addToFavourites.upper () == "Y"):
     resultFromAddingFavouriteCat = add_favourite_cat (randomCat  ["id"], userId)
     newlyAddedCatInfo = {resultFromAddingFavouriteCat ["id"] : randomCat["url"]}
 else:
-    print ("No to lipa, kotek będzie smutny :( ")
+    print ("Such a shame, cat will be sad :( ")
 
 
 
@@ -78,7 +75,7 @@ favouriteCatsById = {
 
 print (favouriteCatsById)
 
-favouriteCatId = input ("Którego kota chcesz usunąć ? ")
+favouriteCatId = input ("Which cat you want to delete? ")
 
 print (remove_favourite_cat(userId, favouriteCatId))
 
